@@ -9,22 +9,6 @@ herr_t fail_on_hdf5_error(hid_t stack_id, void*)
     exit(1);
 }
 
-// extern "C"
-// {
-// void consumer_f (
-//         communicator& local,
-//         const std::vector<communicator>& intercomms,
-//         bool shared,
-//         int metadata,
-//         int passthru);
-// }
-// 
-// void consumer_f (
-//         communicator& local,
-//         const std::vector<communicator>& intercomms,
-//         bool shared,
-//         int metadata,
-//         int passthru)
 int main(int argc, char**argv)
 {
 //     diy::mpi::communicator local_(local);
