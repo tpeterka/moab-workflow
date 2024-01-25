@@ -5,7 +5,7 @@ tasks:
     outports:
       - filename: "*.h5m"
         dsets:
-          - name: "*"
+          - name: "/*"
             passthru: 1
             metadata: 0
   - func: "./consumer.so"
@@ -14,7 +14,7 @@ tasks:
     inports:
       - filename: "*.h5m"
         dsets:
-          - name: "*"
+          - name: "/*"
             passthru: 1
             metadata: 0
 
