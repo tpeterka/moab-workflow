@@ -1,11 +1,4 @@
-set                         (targets    prod-con)
-
-foreach                     (t ${targets})
-  add_executable            (${t} ${t}.cpp)
-  target_link_libraries     (${t} ${libraries})
-endforeach                  ()
-
-add_library                 (producer SHARED producer.cpp mesh_gen.cpp)
+add_library                 (producer SHARED producer.cpp)
 target_link_libraries       (producer ${libraries})
 set_target_properties       (producer PROPERTIES PREFIX "")
 set_target_properties       (producer PROPERTIES SUFFIX ".so")
@@ -16,7 +9,6 @@ set_target_properties       (consumer PROPERTIES PREFIX "")
 set_target_properties       (consumer PROPERTIES SUFFIX ".so")
 
 install                     (TARGETS
-                            prod-con
                             producer
                             consumer
                             DESTINATION ${CMAKE_INSTALL_PREFIX}/bin

@@ -1,20 +1,20 @@
 tasks:
-  - func: "/home/tpeterka/software/mpas-o-workflow/install/bin/producer.so"
+  - func: "./producer.so"
     nprocs: 1
     args: []
     outports:
       - filename: "*.h5m"
         dsets:
-          - name: *
+          - name: "*"
             passthru: 1
             metadata: 0
-  - func: "/home/tpeterka/climate/mpas-o-workflow/install/bin/consumer.so"
+  - func: "./consumer.so"
     nprocs: 1
     args: ["{filename}"]
     inports:
       - filename: "*.h5m"
         dsets:
-          - name: *
+          - name: "*"
             passthru: 1
             metadata: 0
 
