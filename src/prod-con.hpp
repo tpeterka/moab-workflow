@@ -14,6 +14,8 @@
 
 #include    <hdf5.h>
 
+#include    "opts.h"
+
 // #ifdef LOWFIVE_PATH
 // 
 // #include    <lowfive/vol-metadata.hpp>
