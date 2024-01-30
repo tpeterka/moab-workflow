@@ -2,6 +2,7 @@ tasks:
   - func: "./producer.so"
     nprocs: 1
     args: ["--infile", "/home/tpeterka/software/spack/var/spack/environments/moab-workflow-env/moab-workflow/sample_data/mpas_2d_source_p128.h5m"]
+    actions: ["actions", "prod_callback"]
     outports:
       - filename: "*.h5m"
         dsets:
@@ -11,6 +12,7 @@ tasks:
   - func: "./consumer.so"
     nprocs: 1
     args: ["{filename}"]
+    actions: ["actions", "con_callback"]
     inports:
       - filename: "*.h5m"
         dsets:

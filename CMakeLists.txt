@@ -139,6 +139,7 @@ set                         (libraries
 file                        (COPY
                             ${CMAKE_CURRENT_SOURCE_DIR}/wilkins-config.yaml
                             ${CMAKE_CURRENT_SOURCE_DIR}/wilkins-master.py
+                            ${CMAKE_CURRENT_SOURCE_DIR}/src/actions.py
                             DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
                             FILE_PERMISSIONS OWNER_READ OWNER_WRITE
                             GROUP_READ GROUP_WRITE
