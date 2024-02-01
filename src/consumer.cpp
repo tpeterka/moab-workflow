@@ -11,7 +11,11 @@ int main(int argc, char**argv)
 {
     // initialize MPI
     diy::mpi::environment  env(argc, argv);       // equivalent of MPI_Init(argc, argv)/MPI_Finalize()
-    communicator local = MPI_COMM_WORLD;
+
+    // for some reason, local has to be a duplicate of world, not world itself
+    diy::mpi::communicator      world;
+    communicator                local;
+    MPI_Comm_dup(world, &local);
     diy::mpi::communicator local_(local);
 
     std::string infile      = "outfile.h5m";
@@ -22,41 +26,24 @@ int main(int argc, char**argv)
 //         if (passthru)
             H5Pset_fapl_mpio(plist, local, MPI_INFO_NULL);
 
-//         // set a callback to broadcast/receive files by other before a file open
-//         static int nopen = 0;            // needs to be static to be captured correctly in lambda, not sure why
-//         vol_plugin.set_before_file_open([&](const std::string& name)
-//         {
-//             if (name != outfile)
-//                 return;
-//             if (nopen == 0)
-//             {
-//                 fmt::print(stderr, "--- before file open name = {}, nopen = {}, broadcasting ---\n", name, nopen);
-//                 vol_plugin.broadcast_files();
-//             }
-//             nopen++;                    // only increment nopen when the file name matches
-//         });
-// 
-//         vol_plugin.set_keep(true);
-//         vol_plugin.serve_on_close(false);
-
     // initialize moab
     Interface*                      mbi = new Core();                       // moab interface
     ParallelComm*                   pc  = new ParallelComm(mbi, local);     // moab communicator
     EntityHandle                    root;
     ErrorCode                       rval;
-//     rval = mbi->create_meshset(MESHSET_SET, root); ERR(rval);
-// 
-//     // debug
-//     fmt::print(stderr, "*** consumer before reading file ***\n");
-// 
+    rval = mbi->create_meshset(MESHSET_SET, root); ERR(rval);
+
+    // debug
+    fmt::print(stderr, "*** consumer before reading file ***\n");
+
 //     // read file
 //     rval = mbi->load_file(infile.c_str(), &root, read_opts.c_str() ); ERR(rval);
 // 
 //     // debug
 //     fmt::print(stderr, "*** consumer after reading file ***\n");
 
-    // clean up
-    H5Pclose(plist);
+//     // clean up
+//     H5Pclose(plist);
 
     return 0;
 }

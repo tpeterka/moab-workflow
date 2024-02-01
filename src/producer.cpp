@@ -11,7 +11,11 @@ int main(int argc, char**argv)
 {
     // initialize MPI
     diy::mpi::environment  env(argc, argv);       // equivalent of MPI_Init(argc, argv)/MPI_Finalize()
-    communicator local = MPI_COMM_WORLD;
+
+    // for some reason, local has to be a duplicate of world, not world itself
+    diy::mpi::communicator      world;
+    communicator                local;
+    MPI_Comm_dup(world, &local);
     diy::mpi::communicator local_(local);
 
     std::string infile;
@@ -36,21 +40,12 @@ int main(int argc, char**argv)
 
     // echo command line args
     if (local_.rank() == 0)
-        fmt::print(stderr, "producer infile = {}\n", infile);
+        fmt::print(stderr, "producer infile = {} local size = {}\n", infile, local_.size());
 
     hid_t plist = H5Pcreate(H5P_FILE_ACCESS);
 
 //         if (passthru)
             H5Pset_fapl_mpio(plist, local, MPI_INFO_NULL);
-
-//         // set a callback to broadcast/receive files by other before a file open
-//         static int nopen = 0;                   // needs to be static in order to be captured correctly by lambda, not sure why
-//         vol_plugin.set_before_file_open([&](const std::string& name)
-//         {
-//             if (nopen == 0)
-//                 vol_plugin.broadcast_files();
-//             nopen++;
-//         });
 
     // initialize moab
     Interface*                      mbi = new Core();                       // moab interface
