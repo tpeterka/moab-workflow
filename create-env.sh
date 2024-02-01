@@ -28,7 +28,7 @@ spack develop lowfive@master build_type=Debug
 spack add lowfive
 
 # add moab-workflow in develop mode
-spack develop moab-workflow@main build_type=Debug
+spack develop moab-workflow@master build_type=Debug
 spack add moab-workflow
 
 # install everything in environment

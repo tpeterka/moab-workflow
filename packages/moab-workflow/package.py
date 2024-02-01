@@ -13,7 +13,7 @@ class MoabWorkflow(CMakePackage):
     url      = "https://github.com/tpeterka/moab-workflow.git"
     git      = "https://github.com/tpeterka/moab-workflow.git"
 
-    version('main', branch='main')
+    version('master', branch='master')
 
     depends_on('mpich')
     depends_on('hdf5+mpi+hl', type='link')
