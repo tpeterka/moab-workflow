@@ -7,8 +7,8 @@ tasks:
       - filename: "*.h5m"
         dsets:
           - name: "/*"
-            passthru: 1
-            metadata: 0
+            passthru: 0
+            metadata: 1
   - func: "./consumer.so"
     nprocs: 1
     args: ["{filename}"]
@@ -17,6 +17,6 @@ tasks:
       - filename: "*.h5m"
         dsets:
           - name: "/*"
-            passthru: 1
-            metadata: 0
+            passthru: 0
+            metadata: 1
 
