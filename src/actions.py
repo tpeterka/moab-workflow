@@ -1,7 +1,9 @@
 # set a callback for producer to broadcast/receive files before a file open
 prod_nopen = 0;
 def prod_callback(vol, rank):
+    print("prod_callback")
     def bfo_cb(name):
+        print("bfo_cb: name =", name)
         global prod_nopen
         if (name == "outfile.h5m"):
             if (prod_nopen == 0):

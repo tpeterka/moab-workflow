@@ -21,11 +21,6 @@ int main(int argc, char**argv)
     std::string infile      = "outfile.h5m";
     std::string read_opts   = "PARALLEL=READ_PART;PARTITION=PARALLEL_PARTITION;PARALLEL_RESOLVE_SHARED_ENTS;DEBUG_IO=3;";
 
-    hid_t plist = H5Pcreate(H5P_FILE_ACCESS);
-
-//         if (passthru)
-            H5Pset_fapl_mpio(plist, local, MPI_INFO_NULL);
-
     // initialize moab
     Interface*                      mbi = new Core();                       // moab interface
     ParallelComm*                   pc  = new ParallelComm(mbi, local);     // moab communicator
@@ -41,9 +36,6 @@ int main(int argc, char**argv)
 // 
 //     // debug
 //     fmt::print(stderr, "*** consumer after reading file ***\n");
-
-//     // clean up
-//     H5Pclose(plist);
 
     return 0;
 }

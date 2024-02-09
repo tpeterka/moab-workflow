@@ -20,11 +20,9 @@ int main(int argc, char**argv)
 
     std::string infile;
     std::string outfile     = "outfile.h5m";
-    bool        help;                           // show help
-
     std::string read_opts   = "PARALLEL=READ_PART;PARTITION=PARALLEL_PARTITION;PARALLEL_RESOLVE_SHARED_ENTS;DEBUG_IO=6;";
     std::string write_opts  = "PARALLEL=WRITE_PART;DEBUG_IO=6";
-
+    bool        help;                           // show help
 
     // get command line arguments
     opts::Options ops;
@@ -41,11 +39,6 @@ int main(int argc, char**argv)
     // echo command line args
     if (local_.rank() == 0)
         fmt::print(stderr, "producer infile = {} local size = {}\n", infile, local_.size());
-
-    hid_t plist = H5Pcreate(H5P_FILE_ACCESS);
-
-//         if (passthru)
-            H5Pset_fapl_mpio(plist, local, MPI_INFO_NULL);
 
     // initialize moab
     Interface*                      mbi = new Core();                       // moab interface
@@ -69,9 +62,6 @@ int main(int argc, char**argv)
 // 
 //     // debug
 //     fmt::print(stderr, "*** producer after writing file ***\n");
-
-    // clean up
-    H5Pclose(plist);
 
     return 0;
 }
