@@ -48,14 +48,23 @@ int main(int argc, char**argv)
 
     rval = mbi->create_meshset(MESHSET_SET, root); ERR(rval);
 
-    // debug
-    fmt::print(stderr, "*** producer before reading file ***\n");
+#if 0
+
+    // create mesh in memory
+    fmt::print(stderr, "*** producer generating synthetic mesh in memory ***\n");
+    PrepMesh(mesh_type, mesh_size, mesh_slab, mbi, pc, root, factor, false);
+    fmt::print(stderr, "*** producer after creating mesh in memory ***\n");
+
+#else
+
+    // or
 
     // read file
+    fmt::print(stderr, "*** producer reading input file ***\n");
     rval = mbi->load_file(infile.c_str(), &root, read_opts.c_str() ); ERR(rval);
-
-    // debug
     fmt::print(stderr, "*** producer after reading file ***\n");
+
+#endif
 
     // write file
     rval = mbi->write_file(outfile.c_str(), 0, write_opts.c_str(), &root, 1); ERR(rval);
