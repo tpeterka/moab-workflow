@@ -31,11 +31,11 @@ int main(int argc, char**argv)
     // debug
     fmt::print(stderr, "*** consumer before reading file ***\n");
 
-//     // read file
-//     rval = mbi->load_file(infile.c_str(), &root, read_opts.c_str() ); ERR(rval);
-// 
-//     // debug
-//     fmt::print(stderr, "*** consumer after reading file ***\n");
+    // read file
+    rval = mbi->load_file(infile.c_str(), &root, read_opts.c_str() ); ERR(rval);
+
+    // debug
+    fmt::print(stderr, "*** consumer after reading file ***\n");
 
     return 0;
 }

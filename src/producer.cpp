@@ -57,11 +57,11 @@ int main(int argc, char**argv)
     // debug
     fmt::print(stderr, "*** producer after reading file ***\n");
 
-//     // write file
-//     rval = mbi->write_file(outfile.c_str(), 0, write_opts.c_str(), &root, 1); ERR(rval);
-// 
-//     // debug
-//     fmt::print(stderr, "*** producer after writing file ***\n");
+    // write file
+    rval = mbi->write_file(outfile.c_str(), 0, write_opts.c_str(), &root, 1); ERR(rval);
+
+    // debug
+    fmt::print(stderr, "*** producer after writing file ***\n");
 
     return 0;
 }
