@@ -34,7 +34,7 @@ def prod_callback(vol, rank):
 
     # set the callbacks
     vol.set_before_file_open(bfo_cb)
-    vol.set_after_file_close(afc_cb)
+    vol.set_after_file_close(afc_cb)      # TODO: afc_cb takes 0 args
 
     vol.set_keep(True);
     vol.serve_on_close = False;
