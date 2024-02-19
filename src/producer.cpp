@@ -1,3 +1,8 @@
+#include    <diy/master.hpp>
+#include    <diy/decomposition.hpp>
+#include    <diy/assigner.hpp>
+#include    "opts.h"
+
 #include "prod-con.hpp"
 
 herr_t fail_on_hdf5_error(hid_t stack_id, void*)
@@ -48,9 +53,13 @@ int main(int argc, char**argv)
 
     rval = mbi->create_meshset(MESHSET_SET, root); ERR(rval);
 
-#if 0
+#if 1
 
     // create mesh in memory
+    int                             mesh_type = 0;                          // source mesh type (0 = hex, 1 = tet)
+    int                             mesh_size = 10;                         // source mesh size per side
+    int                             mesh_slab = 0;                          // block shape (0 = cubes; 1 = slabs)
+    double                          factor = 1.0;                           // scaling factor on field values
     fmt::print(stderr, "*** producer generating synthetic mesh in memory ***\n");
     PrepMesh(mesh_type, mesh_size, mesh_slab, mbi, pc, root, factor, false);
     fmt::print(stderr, "*** producer after creating mesh in memory ***\n");

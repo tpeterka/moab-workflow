@@ -11,8 +11,6 @@
 #include    <diy/decomposition.hpp>
 #include    <diy/assigner.hpp>
 
-#include    "opts.h"
-
 #include    <fmt/format.h>
 
 #include    <hdf5.h>
