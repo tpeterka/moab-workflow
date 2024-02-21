@@ -16,25 +16,21 @@ def prod_callback(vol, rank):
         if name != "outfile.h5m":
             return
 
-        if rank == 0:
-            if nafc > 0:
-                pass        # TODO: remove this pass after following is done
-# TODO: need API for get_passthru() for file/dataset
-#                 if !vol.get_passthru(name, "/*"):
-#                     vol.serve_all()
-#                     vol.serve_all()
-        else:
-            pass            # TODO: remove this pass after following is done
-# TODO: need API for get_passthru() for file/dataset
-#             if !vol.get_passthru(name, "/*"):
-#                 vol.serve_all()
-#                 vol.serve_all()
+#         if rank == 0:
+#             if nafc > 0:
+#                 if !vol.get_passthru(name, "/*"):   # TODO: need API for get_passthru() for file/dataset
+#                       vol.serve_all()
+#                       vol.serve_all()
+#         else:
+#             if !vol.get_passthru(name, "/*"):       # TODO: need API for get_passthru() for file/dataset
+#                   vol.serve_all()
+#                   vol.serve_all()
 
         nafc += 1
 
     # set the callbacks
     vol.set_before_file_open(bfo_cb)
-    vol.set_after_file_close(afc_cb)      # TODO: afc_cb takes 0 args
+    vol.set_after_file_close(afc_cb)
 
     vol.set_keep(True);
     vol.serve_on_close = False;
