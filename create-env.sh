@@ -27,6 +27,10 @@ spack add moab
 # spack develop lowfive@master build_type=Debug
 # spack add lowfive
 
+# add wilkins in develop mode
+spack develop wilkins@tom-dev build_type=Debug
+spack add wilkins
+
 # add moab-workflow in develop mode
 spack develop moab-workflow@master build_type=Debug
 spack add moab-workflow
