@@ -8,6 +8,8 @@ echo "adding custom spack repo for moab-workflow"
 spack repo add . > /dev/null 2>&1
 echo "adding spack repo for lowfive"
 spack repo add lowfive > /dev/null 2>&1
+echo "adding spack repo for wilkins"
+spack repo add wilkins > /dev/null 2>&1
 
 # create spack environment
 echo "creating spack environment $SPACKENV"
