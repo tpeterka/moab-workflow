@@ -53,7 +53,7 @@ int main(int argc, char**argv)
 
     rval = mbi->create_meshset(MESHSET_SET, root); ERR(rval);
 
-#if 1
+#if 0
 
     // create mesh in memory
     int                             mesh_type = 0;                          // source mesh type (0 = hex, 1 = tet)
