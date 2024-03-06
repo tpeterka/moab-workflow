@@ -18,24 +18,30 @@ int main(int argc, char**argv)
     MPI_Comm_dup(world, &local);
     diy::mpi::communicator local_(local);
 
-    std::string infile      = "outfile.h5m";
+    std::string mpas_infile = "mpas_outfile.h5m";
+    std::string roms_infile = "roms_outfile.h5m";
     std::string read_opts   = "PARALLEL=READ_PART;PARTITION=PARALLEL_PARTITION;PARALLEL_RESOLVE_SHARED_ENTS;DEBUG_IO=3;";
+    ErrorCode   rval;
 
-    // initialize moab
-    Interface*                      mbi = new Core();                       // moab interface
-    ParallelComm*                   pc  = new ParallelComm(mbi, local);     // moab communicator
-    EntityHandle                    root;
-    ErrorCode                       rval;
-    rval = mbi->create_meshset(MESHSET_SET, root); ERR(rval);
+    // initialize moab for mpas file
+    Interface*              mpas_mbi = new Core();                              // moab interface
+    EntityHandle            mpas_root;
+    rval = mpas_mbi->create_meshset(MESHSET_SET, mpas_root); ERR(rval);
 
-    // debug
-    fmt::print(stderr, "*** consumer before reading file ***\n");
-
-    // read file
-    rval = mbi->load_file(infile.c_str(), &root, read_opts.c_str() ); ERR(rval);
+    // initialize moab for roms file
+    Interface*              roms_mbi = new Core();                              // moab interface
+    EntityHandle            roms_root;
+    rval = roms_mbi->create_meshset(MESHSET_SET, roms_root); ERR(rval);
 
     // debug
-    fmt::print(stderr, "*** consumer after reading file ***\n");
+    fmt::print(stderr, "*** consumer before reading files ***\n");
+
+    // read files
+    rval = mpas_mbi->load_file(mpas_infile.c_str(), &mpas_root, read_opts.c_str() ); ERR(rval);
+    rval = roms_mbi->load_file(roms_infile.c_str(), &roms_root, read_opts.c_str() ); ERR(rval);
+
+    // debug
+    fmt::print(stderr, "*** consumer after reading files ***\n");
 
     return 0;
 }
