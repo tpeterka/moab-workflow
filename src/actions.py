@@ -18,12 +18,12 @@ def prod_callback(vol, rank):
         if rank == 0:
             if nafc > 0:
                 if vol.is_passthru(name, "*") == False:
-                    vol.serve_all(True, True)
-                    vol.serve_all(True, True)
+                    vol.serve_all()
+                    vol.serve_all()
         else:
             if vol.is_passthru(name, "*") == False:
-                vol.serve_all(True, True)
-                vol.serve_all(True, True)
+                vol.serve_all()
+                vol.serve_all()
 
         nafc += 1
 
