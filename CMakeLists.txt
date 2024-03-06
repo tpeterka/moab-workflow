@@ -137,20 +137,11 @@ set                         (libraries
                              ${CMAKE_DL_LIBS})
 
 file                        (COPY
-                            ${CMAKE_CURRENT_SOURCE_DIR}/wilkins-config.yaml
                             ${CMAKE_CURRENT_SOURCE_DIR}/wilkins-master.py
-                            ${CMAKE_CURRENT_SOURCE_DIR}/src/actions.py
                             DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
                             FILE_PERMISSIONS OWNER_READ OWNER_WRITE
                             GROUP_READ GROUP_WRITE
                             WORLD_READ WORLD_WRITE)
-
-file                        (COPY
-                            ${CMAKE_CURRENT_SOURCE_DIR}/wilkins-run.sh
-                            DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
-                            FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
-                            GROUP_READ GROUP_WRITE GROUP_EXECUTE
-                            WORLD_READ WORLD_WRITE WORLD_EXECUTE)
 
 add_subdirectory            (src)
 

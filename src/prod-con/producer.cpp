@@ -1,9 +1,9 @@
 #include    <diy/master.hpp>
 #include    <diy/decomposition.hpp>
 #include    <diy/assigner.hpp>
-#include    "opts.h"
+#include    "../opts.h"
 
-#include "prod-con.hpp"
+#include    "prod-con.hpp"
 
 herr_t fail_on_hdf5_error(hid_t stack_id, void*)
 {
