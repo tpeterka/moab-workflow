@@ -20,6 +20,8 @@ int main(int argc, char**argv)
 
     std::string infile      = "outfile.h5m";
     std::string read_opts   = "PARALLEL=READ_PART;PARTITION=PARALLEL_PARTITION;PARALLEL_RESOLVE_SHARED_ENTS;DEBUG_IO=3;";
+    std::string outfile     = "result.h5m";
+    std::string write_opts  = "PARALLEL=WRITE_PART;DEBUG_IO=6";
 
     // initialize moab
     Interface*                      mbi = new Core();                       // moab interface
@@ -35,6 +37,10 @@ int main(int argc, char**argv)
 
     // debug
     fmt::print(stderr, "*** consumer after reading file ***\n");
+
+    // write result file
+    rval = mbi->write_file(outfile.c_str(), 0, write_opts.c_str(), &root, 1); ERR(rval);
+    fmt::print(stderr, "*** consumer wrote the result file ***\n");
 
     return 0;
 }

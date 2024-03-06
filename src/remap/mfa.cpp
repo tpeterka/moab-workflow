@@ -21,6 +21,8 @@ int main(int argc, char**argv)
     std::string mpas_infile = "mpas_outfile.h5m";
     std::string roms_infile = "roms_outfile.h5m";
     std::string read_opts   = "PARALLEL=READ_PART;PARTITION=PARALLEL_PARTITION;PARALLEL_RESOLVE_SHARED_ENTS;DEBUG_IO=3;";
+    std::string outfile     = "result.h5m";
+    std::string write_opts  = "PARALLEL=WRITE_PART;DEBUG_IO=6";
     ErrorCode   rval;
 
     // initialize moab for mpas file
@@ -42,6 +44,10 @@ int main(int argc, char**argv)
 
     // debug
     fmt::print(stderr, "*** consumer after reading files ***\n");
+
+    // write result file (for now, the mpas file)
+//     rval = mpas_mbi->write_file(outfile.c_str(), 0, write_opts.c_str(), &mpas_root, 1); ERR(rval);
+//     fmt::print(stderr, "*** consumer wrote the result file ***\n");
 
     return 0;
 }
