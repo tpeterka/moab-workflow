@@ -27,8 +27,14 @@ install                     (TARGETS
 
 file                        (COPY
                             ${CMAKE_CURRENT_SOURCE_DIR}/wilkins-config.yaml
-                            ${CMAKE_CURRENT_SOURCE_DIR}/actions.py
                             DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/prod-con
+                            FILE_PERMISSIONS OWNER_READ OWNER_WRITE
+                            GROUP_READ GROUP_WRITE
+                            WORLD_READ WORLD_WRITE)
+
+file                        (COPY
+                            ${CMAKE_CURRENT_SOURCE_DIR}/prod-con_actions.py
+                            DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
                             FILE_PERMISSIONS OWNER_READ OWNER_WRITE
                             GROUP_READ GROUP_WRITE
                             WORLD_READ WORLD_WRITE)
