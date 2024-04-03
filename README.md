@@ -26,10 +26,24 @@ Modify wilkins-config.yaml and wilkins-run.sh for the desired number of processe
 
 -----
 
-## Running the example
+## Running the prod-con example
+
+In src/prod-con/producer.cpp, you can control whether to create a synthetic mesh in memory or read an input file with
+`#if 1` or `#if 0` at/around line 56. (NB, the source code is installed by spack in develop mode in the environment
+location; make changes there, and don't forget to `spack install` if making changes.)
 
 ```
 cd $MOAB_WORKFLOW_PATH/bin
+cd prod-con
+./wilkins-run.sh
+```
+-----
+
+## Running the remap example
+
+```
+cd $MOAB_WORKFLOW_PATH/bin
+cd remap
 ./wilkins-run.sh
 ```
 
