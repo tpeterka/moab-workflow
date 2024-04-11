@@ -12,6 +12,8 @@ echo "adding spack repo for wilkins"
 spack repo add wilkins > /dev/null 2>&1
 echo "adding spack repo for mfa-remap"
 spack repo add mfa-remap > /dev/null 2>&1
+echo "adding spack repo for mfa"
+spack repo add mfa > /dev/null 2>&1
 
 # create spack environment
 echo "creating spack environment $SPACKENV"
@@ -22,14 +24,6 @@ spack env create $SPACKENV $YAML
 # activate environment
 echo "activating spack environment"
 spack env activate $SPACKENV
-
-# add moab in develop mode
-spack develop moab@5.3.0~cgm~coupler~dagmc+debug~fbigeom~fortran+hdf5~irel~metis+mpi~netcdf~parmetis~pnetcdf+shared+zoltan build_system=autotools
-spack add moab
-
-# add lowfive in develop mode
-# spack develop lowfive@master build_type=Debug
-# spack add lowfive
 
 # add wilkins in develop mode
 spack develop wilkins@tom-dev build_type=Debug

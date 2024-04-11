@@ -16,9 +16,11 @@ class MfaRemap(CMakePackage):
 
     variant('build_type', default='Release', description='CMake build type', values=('Debug', 'Release', 'RelWithDebInfo', 'MinSizeRel'))
 
-    depends_on('mfa')
+    depends_on('mfa~examples~tests')
     depends_on('mpich')
     depends_on('hdf5+mpi+hl', type='link')
+    depends_on('highfive')
+    depends_on('fmt@8')
 
     def cmake_args(self):
         args = ['-DCMAKE_BUILD_TYPE=%s' % self.spec.variants['build_type'].value,

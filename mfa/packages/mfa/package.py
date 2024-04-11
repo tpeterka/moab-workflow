@@ -22,6 +22,7 @@ class Mfa(CMakePackage):
     depends_on('mpich')
     depends_on('tbb', when='thread=tbb')
     depends_on('kokkos', when='thread=kokkos')
+    depends_on('eigen')
 
     def cmake_args(self):
         args = ['-DCMAKE_BUILD_TYPE=%s' % self.spec.variants['build_type'].value,
