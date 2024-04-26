@@ -19,10 +19,12 @@ class MoabWorkflow(CMakePackage):
     depends_on('hdf5+mpi+hl', type='link')
     depends_on('lowfive', type='link')
     depends_on('wilkins', type='link')
+    depends_on('mfa-remap')
 
     def cmake_args(self):
         args = ['-DCMAKE_C_COMPILER=%s' % self.spec['mpich'].mpicc,
                 '-DCMAKE_CXX_COMPILER=%s' % self.spec['mpich'].mpicxx,
                 '-DBUILD_SHARED_LIBS=false',
-                '-DLOWFIVE_PATH=%s' % self.spec['lowfive'].prefix]
+                '-DLOWFIVE_PATH=%s' % self.spec['lowfive'].prefix,
+                '-DMFA_REMAP_PATH=%s' % self.spec['mfa-remap'].prefix]
         return args
