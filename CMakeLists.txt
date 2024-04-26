@@ -144,8 +144,8 @@ file                        (COPY
                             WORLD_READ WORLD_WRITE)
 
 file                        (COPY
-                            ${MFA_REMAP_PATH}/mfa_remap_shared.so
-                            DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+                            ${MFA_REMAP_PATH}/bin/mfa_remap_shared.so
+                            DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/remap
                             FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
                             GROUP_READ GROUP_WRITE GROUP_EXECUTE
                             WORLD_READ WORLD_WRITE WORLD_EXECUTE)
