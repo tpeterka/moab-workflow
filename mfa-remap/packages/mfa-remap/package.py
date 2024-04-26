@@ -8,9 +8,12 @@ from spack import *
 class MfaRemap(CMakePackage):
     """Example of remapping two simulations with MFA"""
 
-    homepage = "https://github.com/dclenz/climate-remap"
-    url      = "https://github.com/dclenz/climate-remap"
-    git      = "https://github.com/dclenz/climate-remap.git"
+#     homepage = "https://github.com/dclenz/climate-remap"
+#     url      = "https://github.com/dclenz/climate-remap"
+#     git      = "https://github.com/dclenz/climate-remap.git"
+    homepage = "https://github.com/tpeterka/climate-remap"
+    url      = "https://github.com/tpeterka/climate-remap"
+    git      = "https://github.com/tpeterka/climate-remap.git"
 
     version('master', branch='master')
 
@@ -20,7 +23,6 @@ class MfaRemap(CMakePackage):
     depends_on('mpich')
     depends_on('hdf5+mpi+hl', type='link')
     depends_on('highfive')
-    depends_on('fmt@8')
 
     def cmake_args(self):
         args = ['-DCMAKE_BUILD_TYPE=%s' % self.spec.variants['build_type'].value,
