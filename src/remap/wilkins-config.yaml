@@ -19,10 +19,10 @@ tasks:
           - name: "/*"
             passthru: 1
             metadata: 0
-  - func: "./mfa.so"
+  - func: "./mfa_remap_shared.so"
     nprocs: 1
     args: ["{filename}"]
-    actions: ["remap_actions", "mfa_callback"]
+    actions: ["remap_actions", "mfa_remap_callback"]
     inports:
       - filename: "*.h5m"
         dsets:
