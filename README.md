@@ -2,12 +2,55 @@
 
 Installation is done through Spack. If you don't have Spack installed or if Spack is new to you, go [here](https://spack.readthedocs.io/en/latest/) first.
 
+-----
+
+## Clone this repository
+
+```
+git clone https://github.com/tpeterka/moab-workflow
+```
+
+-----
+
+## First time: Add the following Spack repositories to your local Spack installation
+
+LowFive
+```
+git clone https://github.com/diatomic/LowFive
+spack repo add Lowfive
+```
+
+Wilkins
+```
+git clone https://github.com/orcunyildiz/wilkins
+spack repo add wilkins
+```
+
+Mfa-remap
+```
+git clone https://github.com/tpeterka/climate-remap
+spack repo add climate-remap
+```
+
+Mfa
+```
+git clone https://github.com/tpeterka/mfa
+spack repo add mfa
+```
+
+Moab-workflow
+```
+cd /path/to/moab-workflow
+spack repo add .
+```
+
+-----
+
 ## Setting up Spack environment
 
 ### First time: create and load the Spack environment
 
 ```
-git clone https://github.com/tpeterka/moab-workflow
 cd /path/to/moab-workflow
 source ./create-env.sh     # requires being in the same directory to work properly
 ```
@@ -18,7 +61,7 @@ source ./create-env.sh     # requires being in the same directory to work proper
 source /path/to/moab-workflow/load-env.sh
 ```
 
-----
+-----
 
 ## Configuring the workflow
 

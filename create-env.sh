@@ -3,20 +3,6 @@
 export SPACKENV=moab-workflow-env
 export YAML=$PWD/env.yaml
 
-spack env deactivate
-
-# add custom spack repos
-echo "adding custom spack repo for moab-workflow"
-spack repo add . > /dev/null 2>&1
-echo "adding spack repo for lowfive"
-spack repo add lowfive > /dev/null 2>&1
-echo "adding spack repo for wilkins"
-spack repo add wilkins > /dev/null 2>&1
-echo "adding spack repo for mfa-remap"
-spack repo add mfa-remap > /dev/null 2>&1
-echo "adding spack repo for mfa"
-spack repo add mfa > /dev/null 2>&1
-
 # create spack environment
 echo "creating spack environment $SPACKENV"
 spack env deactivate > /dev/null 2>&1
@@ -27,15 +13,17 @@ spack env create $SPACKENV $YAML
 echo "activating spack environment"
 spack env activate $SPACKENV
 
-# add wilkins in develop mode
+# spack develop lowfive@master build_type=Debug
+spack add lowfive
+
 spack develop wilkins@tom-dev build_type=Debug
 spack add wilkins
 
-# add mfa-remap in develop mode
+spack add henson+python+mpi-wrappers
+
 spack develop mfa-remap@master build_type=Debug
 spack add mfa-remap
 
-# add moab-workflow in develop mode
 spack develop moab-workflow@master build_type=Debug
 spack add moab-workflow
 
