@@ -1,22 +1,22 @@
 # producer callbacks
-nafc = 0;       # number of times afc_cb was called
-def prod_callback(vol, rank):
+nmpas_afc = 0;       # number of times mpas_afc_cb was called
+def mpas_callback(vol, rank):
 
     # define a callback to broadcast/receive files before a file open
-    def bfo_cb(name):
-        print("prod_callback bfo_cb: name =", name)
+    def mpas_bfo_cb(name):
+        print("prod_callback mpas_bfo_cb: name =", name)
         if name == "outfile.h5m":
             vol.broadcast_files()
 
     # define a callback to serve files after a file close
-    def afc_cb(name):
-        print("prod_callback afc_cb: name =", name)
-        global nafc
+    def mpas_afc_cb(name):
+        print("prod_callback mpas_afc_cb: name =", name)
+        global nmpas_afc
         if name != "outfile.h5m":
             return
 
         if rank == 0:
-            if nafc > 0:
+            if nmpas_afc > 0:
                 if vol.is_passthru(name, "*") == False:
                     vol.serve_all()
                     vol.serve_all()
@@ -25,25 +25,64 @@ def prod_callback(vol, rank):
                 vol.serve_all()
                 vol.serve_all()
 
-        nafc += 1
+        nmpas_afc += 1
 
     # set the input file to be read from disk
     # TODO: is this needed?
     vol.set_passthru("/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m", "*")
 
     # set the callbacks
-    vol.set_before_file_open(bfo_cb)
-    vol.set_after_file_close(afc_cb)
+    vol.set_before_file_open(mpas_bfo_cb)
+    vol.set_after_file_close(mpas_afc_cb)
+
+    vol.set_keep(True);
+    vol.serve_on_close = False;
+
+nroms_afc = 0;       # number of times roms_afc_cb was called
+def roms_callback(vol, rank):
+
+    # define a callback to broadcast/receive files before a file open
+    def roms_bfo_cb(name):
+        print("prod_callback roms_bfo_cb: name =", name)
+        if name == "outfile.h5m":
+            vol.broadcast_files()
+
+    # define a callback to serve files after a file close
+    def roms_afc_cb(name):
+        print("prod_callback roms_afc_cb: name =", name)
+        global nroms_afc
+        if name != "outfile.h5m":
+            return
+
+        if rank == 0:
+            if nroms_afc > 0:
+                if vol.is_passthru(name, "*") == False:
+                    vol.serve_all()
+                    vol.serve_all()
+        else:
+            if vol.is_passthru(name, "*") == False:
+                vol.serve_all()
+                vol.serve_all()
+
+        nroms_afc += 1
+
+    # set the input file to be read from disk
+    # TODO: is this needed?
+    vol.set_passthru("/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m", "*")
+
+    # set the callbacks
+    vol.set_before_file_open(roms_bfo_cb)
+    vol.set_after_file_close(roms_afc_cb)
 
     vol.set_keep(True);
     vol.serve_on_close = False;
 
 # consumer callbacks
-def con_callback(vol, rank):
+def mfa_remap_callback(vol, rank):
 
     # define a callback to broadcast/receive files before a file open
-    def bfo_cb(name):
-        print("con_callback bfo_cb: name =", name)
+    def mfa_remap_bfo_cb(name):
+        print("con_callback mfa_remap_bfo_cb: name =", name)
         if name == "result.h5m":
             vol.broadcast_files()
 
@@ -52,7 +91,7 @@ def con_callback(vol, rank):
     vol.set_passthru("result.h5m", "*")
 
     # set the callback
-    vol.set_before_file_open(bfo_cb)
+    vol.set_before_file_open(mfa_remap_bfo_cb)
 
     vol.set_keep(True);
     vol.serve_on_close = False;
