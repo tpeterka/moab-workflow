@@ -21,15 +21,23 @@ spack add wilkins
 
 spack add henson+python+mpi-wrappers
 
+spack add mfa~examples~tests
+
+spack add moab@5.3.0~cgm~coupler~dagmc~debug~fbigeom~fortran+hdf5~irel~metis+mpi~netcdf~parmetis~pnetcdf+shared+zoltan build_system=autotools
+
 spack develop mfa-remap@master build_type=Debug
 spack add mfa-remap
 
 spack develop moab-workflow@master build_type=Debug
 spack add moab-workflow
 
-# install everything in environment
+# install
 echo "installing dependencies in environment"
-spack install
+spack install mfa   # install separately so that MFA_PATH is set for later packages
+export MFA_PATH=`spack location -i mfa`
+spack install moab  # install separately so that MOAB_PATH is set for later packages
+export MOAB_PATH=`spack location -i moab`
+spack install       # install the rest
 
 # reset the environment (workaround for spack behavior)
 spack env deactivate
@@ -38,7 +46,6 @@ spack env activate $SPACKENV
 # set build flags
 echo "setting flags for building moab-workflow"
 export LOWFIVE_PATH=`spack location -i lowfive`
-export MOAB_PATH=`spack location -i moab`
 export MOAB_WORKFLOW_PATH=`spack location -i moab-workflow`
 export HENSON_PATH=`spack location -i henson`
 export WILKINS_PATH=`spack location -i wilkins`

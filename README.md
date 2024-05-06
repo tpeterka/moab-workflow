@@ -32,12 +32,6 @@ git clone https://github.com/tpeterka/climate-remap
 spack repo add climate-remap
 ```
 
-Mfa
-```
-git clone https://github.com/tpeterka/mfa
-spack repo add mfa
-```
-
 Moab-workflow
 ```
 cd /path/to/moab-workflow
