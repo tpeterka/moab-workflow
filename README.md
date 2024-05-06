@@ -26,6 +26,12 @@ git clone https://github.com/orcunyildiz/wilkins
 spack repo add wilkins
 ```
 
+Mfa
+```
+git clone https://github.com/tpeterka/mfa
+spack repo add mfa
+```
+
 Mfa-remap
 ```
 git clone https://github.com/tpeterka/climate-remap
