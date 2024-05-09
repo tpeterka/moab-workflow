@@ -20,10 +20,15 @@ def prod_callback(vol, rank):
                 if vol.is_passthru(name, "*") == False:
                     vol.serve_all()
                     vol.serve_all()
+                else:
+       	       	    vol.serve_all(True, False) # signaling consumer that file is ready in passthru mode. TODO: Will be handled by Wilkins.
+
         else:
             if vol.is_passthru(name, "*") == False:
                 vol.serve_all()
                 vol.serve_all()
+            else:
+                vol.serve_all(True, False) # signaling consumer that file is ready in passthru mode
 
         nafc += 1
 
