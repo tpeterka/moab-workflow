@@ -11,7 +11,6 @@ tasks:
             metadata: 0
   - func: "./consumer.so"
     nprocs: 1
-    args: ["{filename}"]
     actions: ["prod-con_actions", "con_callback"]
     inports:
       - filename: "*.h5m"
