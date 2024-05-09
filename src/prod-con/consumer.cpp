@@ -25,6 +25,7 @@ int main(int argc, char**argv)
 
     // initialize moab
     Interface*                      mbi = new Core();                       // moab interface
+    ParallelComm*                   pc  = new ParallelComm(mbi, local);     // moab communicator
     EntityHandle                    root;
     ErrorCode                       rval;
     rval = mbi->create_meshset(MESHSET_SET, root); ERR(rval);
