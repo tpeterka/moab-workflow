@@ -1,7 +1,7 @@
 tasks:
   - func: "./mpas.so"
     nprocs: 1
-    args: ["--infile", "/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"]
+    args: ["--infile", "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"] #"/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"
     actions: ["remap_actions", "mpas_callback"]
     outports:
       - filename: "*.h5m"
@@ -11,7 +11,7 @@ tasks:
             metadata: 0
   - func: "./roms.so"
     nprocs: 1
-    args: ["--infile", "/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"]
+    args: ["--infile", "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"] #"/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"
     actions: ["remap_actions", "roms_callback"]
     outports:
       - filename: "*.h5m"
@@ -19,9 +19,8 @@ tasks:
           - name: "/*"
             passthru: 1
             metadata: 0
-  - func: "./mfa_remap_shared.so"
+  - func: "./mfa.so" #"./mfa_remap_shared.so"
     nprocs: 1
-    args: ["{filename}"]
     actions: ["remap_actions", "mfa_remap_callback"]
     inports:
       - filename: "*.h5m"
