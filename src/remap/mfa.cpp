@@ -27,11 +27,13 @@ int main(int argc, char**argv)
 
     // initialize moab for mpas file
     Interface*              mpas_mbi = new Core();                              // moab interface
+    ParallelComm*           mpas_pc  = new ParallelComm(mpas_mbi, local);     // moab communicator
     EntityHandle            mpas_root;
     rval = mpas_mbi->create_meshset(MESHSET_SET, mpas_root); ERR(rval);
 
     // initialize moab for roms file
     Interface*              roms_mbi = new Core();                              // moab interface
+    ParallelComm*           roms_pc  = new ParallelComm(roms_mbi, local);     // moab communicator
     EntityHandle            roms_root;
     rval = roms_mbi->create_meshset(MESHSET_SET, roms_root); ERR(rval);
 
