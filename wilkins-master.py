@@ -119,18 +119,18 @@ if io_proc==1:
     for prop in l5_props:
         #print(prop.filename, prop.dset, prop.producer, prop.consumer, prop.execGroup, prop.memory, prop.prodIndex, prop.conIndex, prop.zerocopy, prop.flowPolicy)
         if prop.memory==1: #TODO: L5 doesn't support both memory and passthru at the moment. This logic might change once L5 supports both modes.
-#             vol.set_memory(prop.filename, prop.dset)
-            vol.set_memory("*", "*")
+            vol.set_memory(prop.filename, prop.dset)
+            #vol.set_memory("*", "*")
         else:
-#             vol.set_passthru(prop.filename, prop.dset)
-            vol.set_passthru("*", "*")
+            vol.set_passthru(prop.filename, prop.dset)
+            #vol.set_passthru("*", "*")
             #orc@09-06: constructing the passthru list
             if not passthruList.get(prop.execGroup):
                 passthruList[prop.execGroup].append((prop.prodIndex, prop.conIndex))
         if prop.consumer==1 and not any(x in prop.execGroup for x in execGroup): #orc: setting single intercomm per execGroup.
             if ensembles!=1:
-#                 vol.set_intercomm(prop.filename, prop.dset, prop.conIndex)
-                vol.set_intercomm("*", "*", prop.conIndex)
+                vol.set_intercomm(prop.filename, prop.dset, prop.conIndex)
+                #vol.set_intercomm("*", "*", prop.conIndex)
             wlk_consumer.append(prop.conIndex)
             execGroup.append(prop.execGroup)
         if prop.producer==1: #NB: Task can be both producer and consumer.

@@ -4,7 +4,7 @@ tasks:
     args: ["--infile", "/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"]
     actions: ["prod-con_actions", "prod_callback"]
     outports:
-      - filename: "*.h5m"
+      - filename: "outfile.h5m"
         dsets:
           - name: "/*"
             passthru: 1
@@ -13,7 +13,7 @@ tasks:
     nprocs: 1
     actions: ["prod-con_actions", "con_callback"]
     inports:
-      - filename: "*.h5m"
+      - filename: "outfile.h5m"
         dsets:
           - name: "/*"
             passthru: 1
