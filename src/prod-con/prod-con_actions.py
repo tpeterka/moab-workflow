@@ -32,10 +32,6 @@ def prod_callback(vol, rank):
 
         nafc += 1
 
-    # set the input file to be read from disk
-    # TODO: is this needed?
-    vol.set_passthru("/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m", "*")
-
     # set the callbacks
     vol.set_before_file_open(bfo_cb)
     vol.set_after_file_close(afc_cb)
@@ -51,10 +47,6 @@ def con_callback(vol, rank):
         print("con_callback bfo_cb: name =", name)
         if name == "result.h5m":
             vol.broadcast_files()
-
-    # set the result file to be written to disk
-    # TODO: is this needed?
-    vol.set_passthru("result.h5m", "*")
 
     # set the callback
     vol.set_before_file_open(bfo_cb)
