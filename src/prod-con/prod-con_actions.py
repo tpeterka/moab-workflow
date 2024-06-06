@@ -32,9 +32,15 @@ def prod_callback(vol, rank):
 
         nafc += 1
 
+    # define a callback to indicate noncollective dataset writes (e.g., only rank 0 writes the history dset)
+    def ncd_cb():
+        noncollective_datasets = {"history"}
+        return noncollective_datasets
+
     # set the callbacks
     vol.set_before_file_open(bfo_cb)
     vol.set_after_file_close(afc_cb)
+    vol.set_noncollective_datasets(ncd_cb)
 
     vol.set_keep(True);
     vol.serve_on_close = False;
