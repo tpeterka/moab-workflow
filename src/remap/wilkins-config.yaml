@@ -3,29 +3,45 @@ tasks:
     nprocs: 1
     args: ["--infile", "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"] #"/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"
     actions: ["remap_actions", "mpas_callback"]
-    outports:
-      - filename: "*.h5m"
+    inports:
+      - filename: "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"
         dsets:
-          - name: "/*"
+          - name: "*"
+            passthru: 1
+            metadata: 0
+    outports:
+      - filename: "mpas*.h5m"
+        dsets:
+          - name: "*"
             passthru: 1
             metadata: 0
   - func: "./roms.so"
     nprocs: 1
     args: ["--infile", "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"] #"/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"
     actions: ["remap_actions", "roms_callback"]
-    outports:
-      - filename: "*.h5m"
+    inports:
+      - filename: "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"
         dsets:
-          - name: "/*"
+          - name: "*"
+            passthru: 1
+            metadata: 0
+    outports:
+      - filename: "roms*.h5m"
+        dsets:
+          - name: "*"
             passthru: 1
             metadata: 0
   - func: "./mfa.so" #"./mfa_remap_shared.so"
     nprocs: 1
     actions: ["remap_actions", "mfa_remap_callback"]
     inports:
-      - filename: "*.h5m"
+      - filename: "mpas*.h5m"
         dsets:
-          - name: "/*"
+          - name: "*"
             passthru: 1
             metadata: 0
-
+      - filename: "roms*.h5m"
+        dsets:
+          - name: "*"
+            passthru: 1
+            metadata: 0

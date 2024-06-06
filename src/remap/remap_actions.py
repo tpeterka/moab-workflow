@@ -33,10 +33,6 @@ def mpas_callback(vol, rank):
 
         nmpas_afc += 1
 
-    # set the input file to be read from disk
-    # TODO: is this needed?
-    vol.set_passthru("/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m", "*")
-
     # set the callbacks
     vol.set_before_file_open(mpas_bfo_cb)
     vol.set_after_file_close(mpas_afc_cb)
@@ -72,10 +68,6 @@ def roms_callback(vol, rank):
 
         nroms_afc += 1
 
-    # set the input file to be read from disk
-    # TODO: is this needed?
-    vol.set_passthru("/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m", "*")
-
     # set the callbacks
     vol.set_before_file_open(roms_bfo_cb)
     vol.set_after_file_close(roms_afc_cb)
@@ -91,10 +83,6 @@ def mfa_remap_callback(vol, rank):
         print("con_callback mfa_remap_bfo_cb: name =", name)
         if name == "result.h5m":
             vol.broadcast_files()
-
-    # set the result file to be written to disk
-    # TODO: is this needed?
-    vol.set_passthru("result.h5m", "*")
 
     # set the callback
     vol.set_before_file_open(mfa_remap_bfo_cb)
