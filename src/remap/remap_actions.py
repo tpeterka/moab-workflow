@@ -20,22 +20,22 @@ def mpas_callback(vol, rank):
                 if vol.is_passthru(name, "*") == False:
                     vol.serve_all()
                     vol.serve_all()
-                else:
-                    print("signaling consumer at mpas")
-                    vol.serve_all(True, False) # signaling consumer that file is ready in passthru mode. TODO: Will be handled by Wilkins.
         else:
             if vol.is_passthru(name, "*") == False:
                 vol.serve_all()
                 vol.serve_all()
-            else:
-                print("signaling consumer at mpas")
-                vol.serve_all(True, False) # signaling consumer that file is ready in passthru mode
 
         nmpas_afc += 1
+
+    # define a callback to indicate noncollective dataset writes (e.g., only rank 0 writes the history dset)
+    def mpas_ncd_cb():
+        noncollective_datasets = {"history"}
+        return noncollective_datasets
 
     # set the callbacks
     vol.set_before_file_open(mpas_bfo_cb)
     vol.set_after_file_close(mpas_afc_cb)
+    vol.set_noncollective_datasets(mpas_ncd_cb)
 
     vol.set_keep(True);
     vol.serve_on_close = False;
@@ -68,9 +68,15 @@ def roms_callback(vol, rank):
 
         nroms_afc += 1
 
+    # define a callback to indicate noncollective dataset writes (e.g., only rank 0 writes the history dset)
+    def roms_ncd_cb():
+        noncollective_datasets = {"history"}
+        return noncollective_datasets
+
     # set the callbacks
     vol.set_before_file_open(roms_bfo_cb)
     vol.set_after_file_close(roms_afc_cb)
+    vol.set_noncollective_datasets(roms_ncd_cb)
 
     vol.set_keep(True);
     vol.serve_on_close = False;

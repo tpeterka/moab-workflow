@@ -173,18 +173,27 @@ if io_proc==1:
     #orc@09-06: determining the mode.
     pl_prod, pl_con = get_passthru_lists(wilkins, passthruList)
 
+onlinePassthru = False
+if '-o' in sys.argv:
+    onlinePassthru = True
+    sys.argv.remove('-o')
+    print("Providing onlinePassthru support")
+
+exec_task(wilkins, puppets, myTasks, vol, wlk_consumer, wlk_producer, pl_prod, pl_con, pm, nm, io_proc, ensembles, serve_indices, onlinePassthru)
+
+#orc: deprecated as using exec_task to run both stateful&stateless tasks.
 #TODO: Add the logic for TP mode when L5 supports it (simply iterate thru myTasks)
-stateful = False
+#stateful = False
 
-if '-s' in sys.argv:
-    stateful = True
-    sys.argv.remove('-s')
-    print("Running stateful consumer")
-else:
-    print("Nothing specified. Running stateless consumer")
+#if '-s' in sys.argv:
+#    stateful = True
+#    sys.argv.remove('-s')
+#    print("Running stateful consumer")
+#else:
+#    print("Nothing specified. Running stateless consumer")
 
-if stateful:
-    exec_stateful(puppets, myTasks, vol, wlk_consumer, wlk_producer, pl_prod, pl_con, pm, nm, io_proc, ensembles)
-else:
-    exec_stateless(puppets, myTasks, vol, wlk_consumer, wlk_producer, pl_prod, pl_con, pm, nm, ensembles)
+#if stateful:
+#    exec_stateful(puppets, myTasks, vol, wlk_consumer, wlk_producer, pl_prod, pl_con, pm, nm, io_proc, ensembles)
+#else:
+#    exec_stateless(puppets, myTasks, vol, wlk_consumer, wlk_producer, pl_prod, pl_con, pm, nm, ensembles)
 
