@@ -31,7 +31,7 @@ tasks:
           - name: "*"
             passthru: 1
             metadata: 0
-  - func: "./mfa.so" #"./mfa_remap_shared.so"
+  - func: "./mfa_remap_shared.so" #"./mfa.so" #"./mfa_remap_shared.so"
     nprocs: 1
     actions: ["remap_actions", "mfa_remap_callback"]
     inports:
