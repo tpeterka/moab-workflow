@@ -8,6 +8,7 @@ echo "activated spack environment $SPACKENV"
 
 echo "setting flags for building moab-workflow"
 export LOWFIVE_PATH=`spack location -i lowfive`
+export MFA_PATH=`spack location -i mfa`
 export MOAB_PATH=`spack location -i moab`
 export MOAB_WORKFLOW_PATH=`spack location -i moab-workflow`
 export HENSON_PATH=`spack location -i henson`
