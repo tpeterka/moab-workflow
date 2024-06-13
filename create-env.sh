@@ -16,7 +16,7 @@ spack env activate $SPACKENV
 # spack develop lowfive@master build_type=Debug
 spack add lowfive
 
-spack develop wilkins@tom-dev build_type=Debug
+spack develop wilkins@master build_type=Debug
 spack add wilkins
 
 spack add henson+python+mpi-wrappers
