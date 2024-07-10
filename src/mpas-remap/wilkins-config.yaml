@@ -1,0 +1,42 @@
+tasks:
+  - func: "/home/tpeterka/climate/E3SM/components/mpas-ocean/ocean_model.so"
+    nprocs: 4
+    args: ["-n", "namelist.ocean", "-s", "streams.ocean"]
+    actions: ["remap_actions", "mpas_callback"]
+    outports:
+      - filename: "*.h5m"
+        dsets:
+          - name: "/bottomDepth"
+            passthru: 1
+            metadata: 0
+  - func: "../remap/roms.so"
+    nprocs: 1
+    args: ["--infile", "/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"] # "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"
+    actions: ["remap_actions", "roms_callback"]
+    inports:
+      - filename: "/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m" # "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"
+        dsets:
+          - name: "*"
+            passthru: 1
+            metadata: 0
+    outports:
+      - filename: "roms*.h5m"
+        dsets:
+          - name: "*"
+            passthru: 1
+            metadata: 0
+  - func: "../remap/mfa_remap_shared.so" #"./mfa.so" #"./mfa_remap_shared.so"
+    nprocs: 1
+    args: ["--mpasfile", "./mpas_outfile.h5m", "--romsfile", "./roms_outfile.h5m"]
+    actions: ["remap_actions", "mfa_remap_callback"]
+    inports:
+      - filename: "mpas*.h5m"
+        dsets:
+          - name: "*"
+            passthru: 1
+            metadata: 0
+      - filename: "roms*.h5m"
+        dsets:
+          - name: "*"
+            passthru: 1
+            metadata: 0
