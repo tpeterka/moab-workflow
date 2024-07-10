@@ -1,10 +1,10 @@
 tasks:
   - func: "./mpas.so"
     nprocs: 1
-    args: ["--infile", "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"] #"/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"
+    args: ["--infile", "/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"] # "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"
     actions: ["remap_actions", "mpas_callback"]
     inports:
-      - filename: "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"
+      - filename: "/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m" # "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"
         dsets:
           - name: "*"
             passthru: 1
@@ -17,10 +17,10 @@ tasks:
             metadata: 0
   - func: "./roms.so"
     nprocs: 1
-    args: ["--infile", "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"] #"/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"
+    args: ["--infile", "/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m"] # "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"
     actions: ["remap_actions", "roms_callback"]
     inports:
-      - filename: "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"
+      - filename: "/home/tpeterka/software/moab-workflow/sample_data/mpas_2d_source_p128.h5m" # "/lcrc/project/PEDAL/oyildiz/moab-mfa-workflow/sample_data/mpas_2d_source_p128.h5m"
         dsets:
           - name: "*"
             passthru: 1
@@ -33,6 +33,7 @@ tasks:
             metadata: 0
   - func: "./mfa_remap_shared.so" #"./mfa.so" #"./mfa_remap_shared.so"
     nprocs: 1
+    args: ["--mpasfile", "./mpas_outfile.h5m", "--romsfile", "./roms_outfile.h5m"]
     actions: ["remap_actions", "mfa_remap_callback"]
     inports:
       - filename: "mpas*.h5m"

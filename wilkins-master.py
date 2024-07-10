@@ -95,7 +95,7 @@ nm = h.NameMap()
 a = MPI._addressof(MPI.COMM_WORLD)
 wilkins = w.Wilkins(a,config_file)
 
-lowfive.create_logger("trace")
+# lowfive.create_logger("trace")
 
 #orc@31-03: adding for the new control logic: consumer looping until there are files
 wlk_producer = -1
