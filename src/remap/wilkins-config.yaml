@@ -31,7 +31,7 @@ tasks:
           - name: "*"
             passthru: 1
             metadata: 0
-  - func: "./mfa_remap_shared.so" #"./mfa.so" #"./mfa_remap_shared.so"
+  - func: "./mfa_remap_shared.so" # toy placehoder: "./mfa.so" actual remaper: "./mfa_remap_shared.so"
     nprocs: 1
     args: ["--mpasfile", "./mpas_outfile.h5m", "--romsfile", "./roms_outfile.h5m"]
     actions: ["remap_actions", "mfa_remap_callback"]

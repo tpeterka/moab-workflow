@@ -38,6 +38,11 @@ git clone https://github.com/dclenz/climate-remap
 spack repo add climate-remap
 ```
 
+Mpas-o-scorpio
+```
+spack repo add /path_to/mpas-o-workflow/mpas-o-scorpio
+```
+
 Moab-workflow
 ```
 cd /path/to/moab-workflow

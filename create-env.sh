@@ -21,6 +21,10 @@ spack add wilkins
 
 spack add henson+python+mpi-wrappers
 
+spack add netcdf-c@4.9+mpi
+
+spack add mpas-o-scorpio+hdf5
+
 spack add mfa~examples~tests
 
 spack add moab@5.3.0~cgm~coupler~dagmc~debug~fbigeom~fortran+hdf5~irel~metis+mpi~netcdf~parmetis~pnetcdf+shared+zoltan build_system=autotools
