@@ -16,7 +16,7 @@ spack env activate $SPACKENV
 # spack develop lowfive@master build_type=Debug
 spack add lowfive
 
-spack develop wilkins@master build_type=Debug
+# spack develop wilkins@master build_type=Debug
 spack add wilkins
 
 spack add henson+python+mpi-wrappers
@@ -29,10 +29,10 @@ spack add mfa~examples~tests
 
 spack add moab@5.3.0~cgm~coupler~dagmc~debug~fbigeom~fortran+hdf5~irel~metis+mpi~netcdf~parmetis~pnetcdf+shared+zoltan build_system=autotools
 
-spack develop mfa-remap@master build_type=Debug
+# spack develop mfa-remap@master build_type=Debug
 spack add mfa-remap
 
-spack develop moab-workflow@master build_type=Debug
+# spack develop moab-workflow@master build_type=Debug
 spack add moab-workflow
 
 # install
