@@ -61,20 +61,20 @@ set                         (libraries ${libraries} ${MOAB_LIBRARY} ${MOAB_IMESH
 include_directories         (SYSTEM ${MOAB_INCLUDE_DIR})
 
 # Henson
-if                          (HENSON_LIBRARY AND HENSON_PMPI_LIBRARY)
-  message                   ("HENSON_LIBRARY = " ${HENSON_LIBRARY})
-  message                   ("HENSON_PMPI_LIBRARY = " ${HENSON_PMPI_LIBRARY})
-  set                       (HENSON_LIBRARIES ${HENSON_PMPI_LIBRARY} ${HENSON_LIBRARY})
-else                        ()
-  message                   ("Looking for HENSON")
-  find_library              (HENSON_LIBRARY henson)
-  find_library              (HENSON_PMPI_LIBRARY henson-pmpi)
-  message                   ("found HENSON_LIBRARY = " ${HENSON_LIBRARY})
-  message                   ("found HENSON_PMPI_LIBRARY = " ${HENSON_PMPI_LIBRARY})
-  set                       (HENSON_LIBRARIES ${HENSON_PMPI_LIBRARY} ${HENSON_LIBRARY})
+if                          (NOT DEFINED HENSON_PATH AND DEFINED ENV{HENSON_PATH})
+    set                     (HENSON_PATH $ENV{HENSON_PATH})
 endif                       ()
-set                         (libraries ${libraries} ${HENSON_LIBRARIES})
-include_directories         (${HENSON_INCLUDE_DIR})
+
+if                          (HENSON_PATH)
+    set                     (HENSON_LIBRARY ${HENSON_PATH}/lib/libhenson.a)
+    set                     (HENSON_PMPI_LIBRARY ${HENSON_PATH}/lib/libhenson-pmpi.so)
+else                        ()
+    message                 ("Looking for Henson")
+    find_package            (henson REQUIRED)
+endif                       ()
+message                     ("HENSON_LIBRARY = ${HENSON_LIBRARY}")
+message                     ("HENSON_PMPI_LIBRARY = ${HENSON_PMPI_LIBRARY}")
+set                         (libraries ${libraries} ${HENSON_PMPI_LIBRARY} ${HENSON_LIBRARY})
 
 # LowFive
 if                          (NOT DEFINED LOWFIVE_PATH AND DEFINED ENV{LOWFIVE_PATH})

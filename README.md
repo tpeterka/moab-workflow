@@ -292,6 +292,33 @@ This will take ~ 5 minutes to compile.
 
 -----
 
+## First time: build an example consumer application
+
+You will use the spack environment you created earlier. You should not have a conda Compass environment active at this time.
+The easiest way to deactivate conda and Compass is to log out/log in.
+
+```
+source /path_to/moab-workflow/load-mpas.sh
+cd /path_to/moab-workflow
+mkdir build
+cd build
+rm CMakeCache.txt                                                           # optional
+
+cmake .. \
+-DCMAKE_INSTALL_PREFIX=/path_to/moab-workflow/install \                     # use your own path here
+-DCMAKE_CXX_COMPILER=mpicxx \                                               # use your own compiler here
+-DBUILD_SHARED_LIBS=false \
+-DLOWFIVE_PATH=$LOWFIVE \
+-DSCORPIO_PATH=$PIO \
+-DNETCDF_PATH=$NETCDF \
+-DPNETCDF_PATH=$PNETCDF \
+-DHDF5_PATH=$HDF5 \
+-DHENSON_PATH=$HENSON \
+
+make -j install
+
+```
+
 ## Configuring the workflow
 
 Modify wilkins-config.yaml and wilkins-run.sh for the desired number of processes and other configurations.
@@ -324,7 +351,21 @@ cd remap
 
 ```
 cd $MOAB_WORKFLOW_PATH/bin
-cd mpas_remap
+cd mpas-remap
 ./wilkins-run.sh
 ```
 
+-----
+
+## Running the workflow with MPAS-Ocean and a toy consumer (modify eventually to ROMS)
+
+```
+cd $MOAB_WORKFLOW_PATH/bin
+cd mpas-roms
+./wilkins-run.sh
+```
+Because of a quirk in the way that the MPAS-Ocean I/O works, there needs to be an `output.nc` file
+on disk, otherwise the program will complain. Edit `wilkins-config.yaml` to set
+`passthru: 1` and `metadata: 0` for the producer and consumer tasks.
+Alternatively, you may copy the blank netcdf file `blank.nc` from the top level of the moab-workflow
+repository to the current run directory and rename it to `output.nc`.
