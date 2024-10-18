@@ -357,18 +357,24 @@ cd /path_to/moab-workflow/install/bin/mpas-remap
 
 ## Running the workflow with MPAS-Ocean and a toy consumer (modify eventually to ROMS)
 
-Edit the paths in `wilkins-config.yaml` for the producer and consumer tasks for your installation. If you edit the
-source directory `/path_to/moab-workflow/src/mpas-roms` you will need to recompile so that `wilkins-config.yaml` is
-copied to the install directory. Otherwise you can edit the version in the install directory
+Edit the paths in `wilkins-run.sh` for your installation.
+
+Edit the paths in `wilkins-config.yaml` for the producer and consumer tasks for your installation.
+
+If you edit `wilkins-run.sh` and `wilkins-config.yaml` in the
+source directory `/path_to/moab-workflow/src/mpas-roms` you will need to recompile so that those files are
+copied to the install directory. Otherwise you can edit the copies in the install directory
 `/path_to/moab-workflow/install/bin/mpas-roms`, but be aware that recompiling will overwrite the install directory with
-a copy from the source directory.
+copies from the source directory.
 
 ```
 cd /path_to/compass-baroclinic-test/ocean/baroclinic_channel/10km/default/forward
+
 /path_to/moab-workflow/install/bin/mpas-roms/wilkins-run.sh
 ```
 Because of the way NetCDF works, even for memory mode data transfers, there needs to be a valid netCDF file called
 `output.nc` on disk, otherwise the program will complain. For the first execution, set `passthru: 1` and `metadata: 0`
-for the producer and consumer tasks in `wilkins-config.yaml` so that a file is produced on disk, and then leave it
-there.  Alternatively, you may copy the blank netcdf file `blank.nc` from the top level of the moab-workflow
-repository to the current run directory and rename it to `output.nc`.
+for the producer and consumer tasks in `wilkins-config.yaml` so that a file is produced on disk, and then leave the file
+there. Afterwards you may set `passthru: 0` and `metadata: 1` for memory mode.  Alternatively, you may copy the
+blank netcdf file `blank.nc` from the top level of the moab-workflow repository to the current directory and
+rename `blank.nc` to `output.nc`.
