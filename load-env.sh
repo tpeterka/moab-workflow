@@ -10,9 +10,9 @@ echo "setting flags for building moab-workflow"
 export LOWFIVE_PATH=`spack location -i lowfive`
 export MFA_PATH=`spack location -i mfa`
 export MOAB_PATH=`spack location -i moab`
-export MOAB_WORKFLOW_PATH=`spack location -i moab-workflow`
 export HENSON_PATH=`spack location -i henson`
 export WILKINS_PATH=`spack location -i wilkins`
+export MFA_REMAP_PATH=`spack location -i mfa-remap`
 
 echo "setting flags for building MPAS-Ocean"
 export MPAS_EXTERNAL_LIBS=""
@@ -22,8 +22,6 @@ export NETCDFF=`spack location -i netcdf-fortran`
 export PNETCDF=`spack location -i parallel-netcdf`
 export PIO=`spack location -i mpas-o-scorpio`
 export HDF5=`spack location -i hdf5`
-# export LOWFIVE=`spack location -i lowfive`
-# export HENSON=`spack location -i henson`
 export USE_PIO2=true
 export OPENMP=false
 export HDF5_USE_FILE_LOCKING=FALSE

@@ -5,14 +5,14 @@ else                        ()
    set                      (linker_flags "-Wl,-u,_henson_set_contexts,-u,_henson_set_namemap")
 endif                       (NOT APPLE)
 
-add_library                 (consumer SHARED consumer.cpp)
-target_link_libraries       (consumer ${libraries})
-set_target_properties       (consumer PROPERTIES PREFIX "")
-set_target_properties       (consumer PROPERTIES SUFFIX ".so")
-set_target_properties       (consumer PROPERTIES LINK_FLAGS ${linker_flags})
+add_library                 (roms-consumer SHARED consumer.cpp)
+target_link_libraries       (roms-consumer ${libraries})
+set_target_properties       (roms-consumer PROPERTIES PREFIX "")
+set_target_properties       (roms-consumer PROPERTIES SUFFIX ".so")
+set_target_properties       (roms-consumer PROPERTIES LINK_FLAGS ${linker_flags})
 
 install                     (TARGETS
-                            consumer
+                            roms-consumer
                             DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/mpas-roms
                             PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
                             GROUP_READ GROUP_WRITE GROUP_EXECUTE

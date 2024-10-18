@@ -292,7 +292,7 @@ This will take ~ 5 minutes to compile.
 
 -----
 
-## First time: build an example consumer application
+## Building moab-workflow
 
 You will use the spack environment you created earlier. You should not have a conda Compass environment active at this time.
 The easiest way to deactivate conda and Compass is to log out/log in.
@@ -307,13 +307,14 @@ rm CMakeCache.txt                                                           # op
 cmake .. \
 -DCMAKE_INSTALL_PREFIX=/path_to/moab-workflow/install \                     # use your own path here
 -DCMAKE_CXX_COMPILER=mpicxx \                                               # use your own compiler here
+-DCMAKE_C_COMPILER=mpicc \                                                  # use your own compiler here
 -DBUILD_SHARED_LIBS=false \
--DLOWFIVE_PATH=$LOWFIVE \
 -DSCORPIO_PATH=$PIO \
 -DNETCDF_PATH=$NETCDF \
 -DPNETCDF_PATH=$PNETCDF \
 -DHDF5_PATH=$HDF5 \
--DHENSON_PATH=$HENSON \
+-DHENSON_PATH=$HENSON_PATH \
+-DMFA_REMAP_PATH=$MFA_REMAP_PATH \
 
 make -j install
 
@@ -332,8 +333,7 @@ In src/prod-con/producer.cpp, you can control whether to create a synthetic mesh
 location; make changes there, and don't forget to `spack install` if making changes.)
 
 ```
-cd $MOAB_WORKFLOW_PATH/bin
-cd prod-con
+cd /path_to/moab-workflow/install/bin/prod-con
 ./wilkins-run.sh
 ```
 -----
@@ -341,8 +341,7 @@ cd prod-con
 ## Running the remap example with placeholders for the simulation codes
 
 ```
-cd $MOAB_WORKFLOW_PATH/bin
-cd remap
+cd /path_to/moab-workflow/install/bin/remap
 ./wilkins-run.sh
 ```
 -----
@@ -350,8 +349,7 @@ cd remap
 ## Running the remapping workflow with MPAS-Ocean
 
 ```
-cd $MOAB_WORKFLOW_PATH/bin
-cd mpas-remap
+cd /path_to/moab-workflow/install/bin/mpas-remap
 ./wilkins-run.sh
 ```
 
@@ -359,13 +357,18 @@ cd mpas-remap
 
 ## Running the workflow with MPAS-Ocean and a toy consumer (modify eventually to ROMS)
 
+Edit the paths in `wilkins-config.yaml` for the producer and consumer tasks for your installation. If you edit the
+source directory `/path_to/moab-workflow/src/mpas-roms` you will need to recompile so that `wilkins-config.yaml` is
+copied to the install directory. Otherwise you can edit the version in the install directory
+`/path_to/moab-workflow/install/bin/mpas-roms`, but be aware that recompiling will overwrite the install directory with
+a copy from the source directory.
+
 ```
-cd $MOAB_WORKFLOW_PATH/bin
-cd mpas-roms
-./wilkins-run.sh
+cd /path_to/compass-baroclinic-test/ocean/baroclinic_channel/10km/default/forward
+/path_to/moab-workflow/install/bin/mpas-roms/wilkins-run.sh
 ```
-Because of a quirk in the way that the MPAS-Ocean I/O works, there needs to be an `output.nc` file
-on disk, otherwise the program will complain. Edit `wilkins-config.yaml` to set
-`passthru: 1` and `metadata: 0` for the producer and consumer tasks.
-Alternatively, you may copy the blank netcdf file `blank.nc` from the top level of the moab-workflow
+Because of the way NetCDF works, even for memory mode data transfers, there needs to be a valid netCDF file called
+`output.nc` on disk, otherwise the program will complain. For the first execution, set `passthru: 1` and `metadata: 0`
+for the producer and consumer tasks in `wilkins-config.yaml` so that a file is produced on disk, and then leave it
+there.  Alternatively, you may copy the blank netcdf file `blank.nc` from the top level of the moab-workflow
 repository to the current run directory and rename it to `output.nc`.

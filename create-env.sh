@@ -24,22 +24,15 @@ spack add lowfive
 spack add wilkins
 
 spack add henson+python+mpi-wrappers
-
 spack add netcdf-c@4.9+mpi
-
+spack add parallel-netcdf
 spack add netcdf-fortran@4.5.3
-
 spack add mpas-o-scorpio+hdf5
-
 spack add mfa~examples~tests
-
 spack add moab@5.3.0~cgm~coupler~dagmc~debug~fbigeom~fortran+hdf5~irel~metis+mpi~netcdf~parmetis~pnetcdf+shared+zoltan build_system=autotools
 
 # spack develop mfa-remap@master build_type=Debug
 spack add mfa-remap
-
-# spack develop moab-workflow@master build_type=Debug
-spack add moab-workflow
 
 # install
 echo "installing dependencies in environment"
@@ -47,6 +40,8 @@ spack install mfa   # install separately so that MFA_PATH is set for later packa
 export MFA_PATH=`spack location -i mfa`
 spack install moab  # install separately so that MOAB_PATH is set for later packages
 export MOAB_PATH=`spack location -i moab`
+spack install henson        # install henson so that henson path is set
+export HENSON=`spack location -i henson`
 spack install       # install the rest
 
 spack env deactivate
