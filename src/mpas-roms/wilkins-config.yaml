@@ -10,7 +10,7 @@ tasks:
             metadata: 0
   - func: "/home/tpeterka/software/moab-workflow/install/bin/mpas-roms/roms-consumer.so"
     nprocs: 1
-    args: ["-f", "/home/tpeterka/compass-baroclinic-test/ocean/baroclinic_channel/10km/default/forward/output.nc"]
+    args: ["-f", "output.nc"]
     inports:
       - filename: "*.nc"
         dsets:
