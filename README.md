@@ -1,6 +1,38 @@
 # Instructions for Building and Running Moab Workflow with Wilkins
 
-Installation is done through Spack. If you don't have Spack installed or if Spack is new to you, go [here](https://spack.readthedocs.io/en/latest/) first.
+Installation is done through Spack.
+If you don't have Spack installed or if Spack is new to you, go [here](https://spack.readthedocs.io/en/latest/) first.
+
+-----
+
+## For Perlmutter:
+
+The version of mpi included with the Cray programming environment is too old.
+Load the module for a modern mpich, and unload the Cray programming environment
+module:
+```
+module load mpich/4.2.2
+module unload PrgEnv-gnu/8.5.0
+```
+Edit `~/.spack/packages.yaml` to use the system-install mpi. (See spack
+documentation):
+```
+packages:
+  mpich:
+    externals:
+      - spec: mpich@4
+        modules:
+        - mpich/4.2.2
+```
+Edit the spack recipe for parallel-netcdf:
+`spack edit parallel-netcdf`
+Insert at line 157:
+```
+     def flag_handler(self, name, flags):
+         if name == "ldlibs":
+             flags.append("-L/opt/cray/libfabric/1.20.1/lib64")
+         return (None, None, flags)
+```
 
 -----
 
@@ -333,31 +365,52 @@ In src/prod-con/producer.cpp, you can control whether to create a synthetic mesh
 location; make changes there, and don't forget to `spack install` if making changes.)
 
 ```
+source /path_to/moab_workflow/load-env.sh
 cd /path_to/moab-workflow/install/bin/prod-con
+
+# for workstations
 ./wilkins-run.sh
+
+# for Perlmutter
+salloc --nodes 1 --qos interactive --time 10:00 --constraint cpu --account=<your account>
+./wilkins-srun.sh
 ```
 -----
 
 ## Running the remap example with placeholders for the simulation codes
 
 ```
+source /path_to/moab_workflow/load-env.sh
 cd /path_to/moab-workflow/install/bin/remap
+
+# for workstations
 ./wilkins-run.sh
+
+# for Perlmutter
+salloc --nodes 1 --qos interactive --time 10:00 --constraint cpu --account=<your account>
+./wilkins-srun.sh
 ```
 -----
 
 ## Running the remapping workflow with MPAS-Ocean
 
 ```
+source /path_to/moab_workflow/load-env.sh
 cd /path_to/moab-workflow/install/bin/mpas-remap
+
+# for workstations
 ./wilkins-run.sh
+
+# for Perlmutter
+salloc --nodes 1 --qos interactive --time 10:00 --constraint cpu --account=<your account>
+./wilkins-srun.sh
 ```
 
 -----
 
 ## Running the workflow with MPAS-Ocean and a toy consumer (modify eventually to ROMS)
 
-Edit the paths in `wilkins-run.sh` for your installation.
+Edit the paths in `wilkins-run.sh` and `wilkins-srun.sh` for your installation.
 
 Edit the paths in `wilkins-config.yaml` for the producer and consumer tasks for your installation.
 
@@ -368,9 +421,15 @@ copied to the install directory. Otherwise you can edit the copies in the instal
 copies from the source directory.
 
 ```
+source /path_to/moab_workflow/load-env.sh
 cd /path_to/compass-baroclinic-test/ocean/baroclinic_channel/10km/default/forward
 
+# for workstations
 /path_to/moab-workflow/install/bin/mpas-roms/wilkins-run.sh
+
+# for Perlmutter
+salloc --nodes 1 --qos interactive --time 10:00 --constraint cpu --account=<your account>
+/path_to/moab-workflow/install/bin/mpas-roms/wilkins-srun.sh
 ```
 Because of the way NetCDF works, even for memory mode data transfers, there needs to be a valid netCDF file called
 `output.nc` on disk, otherwise the program will complain. For the first execution, set `passthru: 1` and `metadata: 0`
