@@ -25,8 +25,8 @@ int main(int argc, char**argv)
 
     std::string infile;
     std::string outfile     = "mpas_outfile.h5m";
-    std::string read_opts   = "PARALLEL=READ_PART;PARTITION=PARALLEL_PARTITION;PARALLEL_RESOLVE_SHARED_ENTS;DEBUG_IO=6;";
-    std::string write_opts  = "PARALLEL=WRITE_PART;DEBUG_IO=6";
+    std::string read_opts   = "PARALLEL=READ_PART;PARTITION=PARALLEL_PARTITION;PARALLEL_RESOLVE_SHARED_ENTS;DEBUG_IO=2;";
+    std::string write_opts  = "PARALLEL=WRITE_PART;DEBUG_IO=2";
     bool        help;                           // show help
 
     // get command line arguments

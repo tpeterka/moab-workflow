@@ -17,16 +17,9 @@ set_target_properties       (roms PROPERTIES PREFIX "")
 set_target_properties       (roms PROPERTIES SUFFIX ".so")
 set_target_properties       (roms PROPERTIES LINK_FLAGS ${linker_flags})
 
-add_library                 (mfa SHARED mfa.cpp)
-target_link_libraries       (mfa ${libraries})
-set_target_properties       (mfa PROPERTIES PREFIX "")
-set_target_properties       (mfa PROPERTIES SUFFIX ".so")
-set_target_properties       (mfa PROPERTIES LINK_FLAGS ${linker_flags})
-
 install                     (TARGETS
                             mpas
                             roms
-                            mfa
                             DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/remap
                             PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
                             GROUP_READ GROUP_WRITE GROUP_EXECUTE

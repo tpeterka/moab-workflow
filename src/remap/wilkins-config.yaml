@@ -1,10 +1,12 @@
 tasks:
   - func: "./mpas.so"
     nprocs: 1
-    args: ["--infile", "/home/tpeterka/software/moab-workflow/sample_data/mpas_3d_source_p1024.h5m"]
+    args: ["--infile", "/home/dlenz/workspace/mfa/climate-remap/data/mpas_3d_source_p1024.h5m"]
+    # args: ["--infile", "/home/tpeterka/software/moab-workflow/sample_data/mpas_3d_source_p1024.h5m"]
     actions: ["remap_actions", "mpas_callback"]
     inports:
-      - filename: "/home/tpeterka/software/moab-workflow/sample_data/mpas_3d_source_p1024.h5m"
+      - filename: "/home/dlenz/workspace/mfa/climate-remap/data/mpas_3d_source_p1024.h5m"
+      # - filename: "/home/tpeterka/software/moab-workflow/sample_data/mpas_3d_source_p1024.h5m"
         dsets:
           - name: "*"
             passthru: 1
@@ -13,14 +15,16 @@ tasks:
       - filename: "mpas*.h5m"
         dsets:
           - name: "*"
-            passthru: 1
-            metadata: 0
+            passthru: 0
+            metadata: 1
   - func: "./roms.so"
     nprocs: 1
-    args: ["--infile", "/home/tpeterka/software/moab-workflow/sample_data/roms_3d_projected_p1024.h5m"]
+    args: ["--infile", "/home/dlenz/workspace/mfa/climate-remap/data/roms_3d_projected_p1024.h5m"]
+    # args: ["--infile", "/home/tpeterka/software/moab-workflow/sample_data/roms_3d_projected_p1024.h5m"]
     actions: ["remap_actions", "roms_callback"]
     inports:
-      - filename: "/home/tpeterka/software/moab-workflow/sample_data/roms_3d_projected_p1024.h5m"
+      - filename: "/home/dlenz/workspace/mfa/climate-remap/data/roms_3d_projected_p1024.h5m"
+      # - filename: "/home/tpeterka/software/moab-workflow/sample_data/roms_3d_projected_p1024.h5m"
         dsets:
           - name: "*"
             passthru: 1
@@ -29,21 +33,21 @@ tasks:
       - filename: "roms*.h5m"
         dsets:
           - name: "*"
-            passthru: 1
-            metadata: 0
+            passthru: 0
+            metadata: 1
   - func: "./mfa_remap_shared.so" #"./mfa.so" #"./mfa_remap_shared.so"
     nprocs: 1
-    args: ["-d", "5", "-m", "3", "-q", "2", "-v", "15", "-b", "1", "-k", "0", "--romsfile", "roms_outfile.h5m", "--mpasfile", "mpas_outfile.h5m"]
+    args: ["-d", "5", "-m", "3", "-q", "2", "-v", "15", "-b", "1", "-k", "0", "-r", "Salinity3d", "-r", "Temperature3d", "--romsfile", "roms_outfile.h5m", "--mpasfile", "mpas_outfile.h5m"]
     actions: ["remap_actions", "mfa_remap_callback"]
     inports:
       - filename: "mpas*.h5m"
         dsets:
           - name: "*"
-            passthru: 1
-            metadata: 0
+            passthru: 0
+            metadata: 1
       - filename: "roms*.h5m"
         dsets:
           - name: "*"
-            passthru: 1
-            metadata: 0
+            passthru: 0
+            metadata: 1
 
