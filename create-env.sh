@@ -41,7 +41,7 @@ export MFA_PATH=`spack location -i mfa`
 spack install moab  # install separately so that MOAB_PATH is set for later packages
 export MOAB_PATH=`spack location -i moab`
 spack install henson        # install henson so that henson path is set
-export HENSON=`spack location -i henson`
+export HENSON_PATH=`spack location -i henson`
 spack install       # install the rest
 
 spack env deactivate

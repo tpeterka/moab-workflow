@@ -28,7 +28,7 @@ export HDF5_USE_FILE_LOCKING=FALSE
 export MPAS_SHELL=/bin/bash
 export CORE=ocean
 export SHAREDLIB=true
-export PROFILE_PRELIB="-L$HENSON/lib -lhenson-pmpi"
+export PROFILE_PRELIB="-L$HENSON_PATH/lib -lhenson-pmpi"
 
 echo "setting flags for running moab-workflow"
 export LD_LIBRARY_PATH=$NETCDF/lib:$LD_LIBRARY_PATH
